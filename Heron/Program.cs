@@ -22,7 +22,7 @@ namespace Heron
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
-        // CreateDefaultBuilder sets up the applciaiton with some defaults. Configures a webserver called Kastrol (internal server).
-        // UseStartup sets up the start up class. I.e. sepcifies the type of the start up class in this case StartUp class. 
+        // CreateDefaultBuilder sets up the application with some defaults. Configures a web server called Kastrol (internal server).
+        // UseStartup sets up the start up class. I.e. specifies the type of the start up class in this case StartUp class. 
     }
 }
