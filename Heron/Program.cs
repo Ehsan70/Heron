@@ -14,6 +14,7 @@ namespace Heron
     {
         public static void Main(string[] args)
         {
+            // A host is been setup which will configure a server and request processing pipelines. 
             BuildWebHost(args).Run();
         }
 
@@ -21,5 +22,7 @@ namespace Heron
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+        // CreateDefaultBuilder sets up the applciaiton with some defaults. Configures a webserver called Kastrol (internal server).
+        // UseStartup sets up the start up class. I.e. sepcifies the type of the start up class in this case StartUp class. 
     }
 }
