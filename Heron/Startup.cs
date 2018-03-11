@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Heron.Filters;
+using Heron.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Heron
@@ -15,6 +18,20 @@ namespace Heron
         // 1. Defining the request pipelines 
         // 2. Configuring all the services that we need through out the application
 
+        public IConfiguration Configuration { get; }
+
+
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appSettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appSettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -23,7 +40,14 @@ namespace Heron
             // ASP.NET Core uses dependency injection (Constructor Injection).  
             // Services are objects that have certain functionality for other parts of the application
 
-            services.AddMvc();
+            services.AddMvc(opt => 
+            {
+                // Adding the JsonExceptionFilter to filters collection
+                opt.Filters.Add(typeof(JsonExceptionFilter));
+            });
+            services.AddRouting(opt => opt.LowercaseUrls = true);
+
+            services.Configure<Nest>(Configuration.GetSection("SampleNest"));
         }
 
 
