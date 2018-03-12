@@ -17,7 +17,7 @@ namespace Heron.Controllers
                 href = Url.Link(nameof(GetRoot), null),
                 nests = new
                 {
-                    href = Url.Link(nameof(NestController.GetNest), null)
+                    href = Url.Link(nameof(NestController.GetNests), null)
                 }
             };
 
