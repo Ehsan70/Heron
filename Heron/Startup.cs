@@ -47,7 +47,8 @@ namespace Heron
             });
             services.AddRouting(opt => opt.LowercaseUrls = true);
 
-            services.Configure<Nest>(Configuration.GetSection("SampleNest"));
+            // This will load the sample nest data from appSettings and uses it 
+            //services.Configure<Nest>(Configuration.GetSection("SampleNest"));
         }
 
 
